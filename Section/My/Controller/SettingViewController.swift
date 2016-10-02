@@ -54,6 +54,20 @@ class SettingViewController: BaseViewController ,UITableViewDelegate,UITableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: true)
+        // 意见反馈
+        if indexPath.section == 0 && indexPath.row == 2 {
+            let suggestVc = SuggestViewController()
+            self.navigationController?.pushViewController(suggestVc, animated: true)
+        }
+        // 关于单糖
+        if indexPath.section == 2 && indexPath.row == 0 {
+            let aboutVc = AboutViewController()
+            self.navigationController?.pushViewController(aboutVc, animated: true)
+        }
+        if indexPath.section == 1 && indexPath.row == 0 {
+            let myIdentifyVc = MyIdentifyViewController()
+            self.navigationController?.pushViewController(myIdentifyVc, animated: true)
+        }
     }
 }
 

@@ -13,7 +13,7 @@
             <rect key="frame" x="0.0" y="0.0" width="364" height="51"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <frame key="frameInset" width="364" height="50.5"/>
+                <frame key="frameInset" width="364" height="50"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Tj-uc-sG9" userLabel="iconImage View">
@@ -55,7 +55,7 @@
                     <constraint firstItem="6Tj-uc-sG9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="8" id="duP-HV-DxS"/>
                     <constraint firstAttribute="trailing" secondItem="7hO-64-yl1" secondAttribute="trailing" constant="6" id="klC-cg-gFl"/>
                     <constraint firstItem="7hO-64-yl1" firstAttribute="leading" secondItem="ev8-46-3qg" secondAttribute="trailing" constant="10" id="u0U-fH-uye"/>
-                    <constraint firstItem="7hO-64-yl1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="24" id="y1e-oh-reJ"/>
+                    <constraint firstItem="7hO-64-yl1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="y1e-oh-reJ"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

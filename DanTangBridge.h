@@ -10,5 +10,6 @@
 #define DanTangBridge_h
 
 #import "CZAdditions.h"
+#import "CustomTextView.h"
 
 #endif /* DanTangBridge_h */
