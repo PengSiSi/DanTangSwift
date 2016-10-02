@@ -28,7 +28,7 @@ extension MainViewController{
             ["clsName": "HomeViewController","title": "首页","imageName": "home"],
             ["clsName": "GiftViewController","title": "单品","imageName": "category"],
             ["clsName": "CategoryViewController","title": "分类","imageName": "gift"],
-            ["clsName": "MyViewController","title": "我的","imageName": "me_girl"],
+            ["clsName": "SettingViewController","title": "我的","imageName": "me_girl"],
             ]
         var arrayM = [UIViewController]()
         for dict in array {
@@ -53,12 +53,12 @@ extension MainViewController{
         vc.title = title
         
         // 3. 设置图像
-        vc.tabBarItem.image = UIImage(named: "Tabbar_" + imageName + "_23x23_")
-        vc.tabBarItem.selectedImage = UIImage(named: "Tabbar_" + imageName + "_23x23_selected")?.withRenderingMode(.alwaysOriginal)
+        vc.tabBarItem.image = UIImage(named: "TabBar_" + imageName + "_23x23_")
+        vc.tabBarItem.selectedImage = UIImage(named: "TabBar_" + imageName + "_23x23_selected")?.withRenderingMode(.alwaysOriginal)
         
         // 4. 设置 tabbar 的标题字体（大小）
         vc.tabBarItem.setTitleTextAttributes(
-            [NSForegroundColorAttributeName: UIColor.orange],
+            [NSForegroundColorAttributeName: UIColor.red],
             for: .highlighted)
         // 系统默认是 12 号字，修改字体大小，要设置 Normal 的字体大小
         vc.tabBarItem.setTitleTextAttributes(

@@ -16,7 +16,7 @@ extension UIBarButtonItem{
     // 遍历构造函数
     convenience init(title: String, fontSize: CGFloat = 16, target: AnyObject? , action: Selector) {
        
-        // 设置好友按钮
+        // 设置按钮
         let btn: UIButton = UIButton.cz_textButton(title, fontSize: fontSize, normalColor: UIColor.darkGray, highlightedColor: UIColor.orange)
         btn.addTarget(target, action: action, for: .touchUpInside)
         self.init(customView: btn)

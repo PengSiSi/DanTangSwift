@@ -7,13 +7,12 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class BaseViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         setupUI()
     }
 }
@@ -21,6 +20,12 @@ class BaseViewController: UIViewController {
 extension BaseViewController {
     
     func setupUI() {
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = GlobalColor()
+        
+        // 设置SVProgressHUD
+        SVProgressHUD.setDefaultStyle(SVProgressHUDStyle.custom)
+        SVProgressHUD.setMinimumDismissTimeInterval(1.0)
+        SVProgressHUD.setBackgroundColor(UIColor(red: 0, green: 0, blue: 0, alpha: 0.5))
+        SVProgressHUD.setForegroundColor(UIColor.white)
     }
 }
