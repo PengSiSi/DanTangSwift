@@ -19,6 +19,7 @@ extension UIBarButtonItem{
         // 设置按钮
         let btn: UIButton = UIButton.cz_textButton(title, fontSize: fontSize, normalColor: UIColor.darkGray, highlightedColor: UIColor.orange)
         btn.addTarget(target, action: action, for: .touchUpInside)
+        btn.setTitleColor(UIColor.white, for: .normal)
         self.init(customView: btn)
     }
 }
