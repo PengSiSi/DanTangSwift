@@ -8,15 +8,21 @@
 
 import UIKit
 
+protocol SelectIdentifyDelegate {
+    
+    func didSelectedMyIdentify(_selectedIdentify: String?);
+}
+
 class SelectIdentifyViewController: BaseViewController ,UITableViewDelegate,UITableViewDataSource {
 
     var tableView: UITableView?
     var dataArray: [String]?
     var identify: Bool?   // 0:性别   1: 角色
+    var delegate: SelectIdentifyDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        title = "选择角色"
         initData()
         createTableView()
 
@@ -37,7 +43,19 @@ class SelectIdentifyViewController: BaseViewController ,UITableViewDelegate,UITa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "SelectIdentifyCell", for: indexPath) as! SelectIdentifyCell
+        cell.titleLabel.text = dataArray?[indexPath.row]
+        cell.selectionStyle = .none
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let cell = tableView.cellForRow(at: indexPath) as! SelectIdentifyCell
+        cell.imgView.isHidden = false
+        if delegate != nil {
+            delegate?.didSelectedMyIdentify(_selectedIdentify: dataArray?[indexPath.row])
+        }
+       _ =  self.navigationController?.popViewController(animated: true)
     }
 }
 

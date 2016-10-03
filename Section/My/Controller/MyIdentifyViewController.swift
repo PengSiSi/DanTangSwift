@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MyIdentifyViewController: BaseViewController,UITableViewDelegate,UITableViewDataSource {
+class MyIdentifyViewController: BaseViewController,UITableViewDelegate,UITableViewDataSource, SelectIdentifyDelegate {
 
     var tableView:UITableView = UITableView()
     var dataDic: [String: String]?
@@ -47,10 +47,10 @@ class MyIdentifyViewController: BaseViewController,UITableViewDelegate,UITableVi
             cell.titleLabel.text = "性别"
             cell.contentLabel.text = dataDic?["性别"]
         }
-        if indexPath.row == 0 {
+        if indexPath.row == 1 {
             
             cell.titleLabel.text = "角色"
-            cell.contentLabel.text = dataDic?["性别"]
+            cell.contentLabel.text = dataDic?["角色"]
         }
           return cell
     }
@@ -63,6 +63,29 @@ class MyIdentifyViewController: BaseViewController,UITableViewDelegate,UITableVi
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         
         return nil
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        let selectVc = SelectIdentifyViewController()
+        selectVc.delegate = self
+        
+        if indexPath.row == 0 {
+            
+            // 性别
+            selectVc.identify = false
+        }
+        else if indexPath.row == 1 {
+           
+            // 角色
+            selectVc.identify = true
+        }
+        self.navigationController?.pushViewController(selectVc, animated: true)
+    }
+    
+    func didSelectedMyIdentify(_selectedIdentify: String?) {
+        print("选择了\(_selectedIdentify))")
     }
 }
 
@@ -81,18 +104,19 @@ extension MyIdentifyViewController {
         leftLine.snp.makeConstraints { (make) in
             make.centerY.equalTo(bgView)
             make.left.equalTo(10)
-            make.width.equalTo(50)
+            make.width.equalTo(30)
             make.height.equalTo(0.5)
         }
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.systemFont(ofSize: 12)
         label.text = "我们将根据您的身份推荐最合适的内容"
+        label.textAlignment = .center
         label.textColor = UIColor.gray
         bgView.addSubview(label)
         label.snp.makeConstraints { (make) in
             make.centerY.equalTo(bgView)
             make.left.equalTo(leftLine.snp.right).offset(10)
-            make.width.equalTo(SCREENW - 130)
+            make.width.equalTo(SCREENW - 100)
             make.height.equalTo(bgView)
         }
         let rightLine = UIView()
