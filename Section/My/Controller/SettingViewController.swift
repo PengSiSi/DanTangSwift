@@ -19,6 +19,8 @@ class SettingViewController: BaseViewController ,UITableViewDelegate,UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "更多"
+        automaticallyAdjustsScrollViewInsets = false
+        navigationController?.navigationBar.isTranslucent = false
         createTableView()
         loadData()
     }

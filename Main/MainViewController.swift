@@ -28,7 +28,7 @@ extension MainViewController{
             ["clsName": "HomeViewController","title": "首页","imageName": "home"],
             ["clsName": "GiftViewController","title": "单品","imageName": "category"],
             ["clsName": "CategoryViewController","title": "分类","imageName": "gift"],
-            ["clsName": "SettingViewController","title": "我的","imageName": "me_girl"],
+            ["clsName": "MyViewController","title": "我的","imageName": "me_girl"],
             ]
         var arrayM = [UIViewController]()
         for dict in array {
