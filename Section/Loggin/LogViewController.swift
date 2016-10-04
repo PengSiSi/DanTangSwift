@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class LogViewController: BaseViewController {
 
@@ -21,6 +22,7 @@ class LogViewController: BaseViewController {
         setTextField()
         createLogButton()
         otherLogin()
+        thirdLog()
     }
 }
 
@@ -126,27 +128,58 @@ extension LogViewController {
     }
     
     // 三个图标
-//    func thirdLog() {
-//        
-//        let width = SCREENW / 3.0
-//        let height = 60
-//        for i in 0..< 3 {
-//            let button = UIButton()
-//        }
-//    }
+    func thirdLog() {
+        
+        let width = 70
+        let height = 70
+        let margin = 40
+        let imgButtonArray = ["Share_WeiboIcon_70x70_","Share_WeChatSessionIcon_70x70_","Share_QQIcon_70x70_"]
+        for i in 0...2 {
+            let button = UIButton()
+            button.frame = CGRect(x: (i * width) + ((i + 1) * margin), y: 380, width: width, height: height)
+            view.addSubview(button)
+            button.setImage(UIImage(named: imgButtonArray[i]), for: .normal)
+            button.tag = i
+            button.addTarget(self, action: #selector(shareButtonClick(button:)), for: .touchUpInside)
+        }
+    }
 }
 
 extension LogViewController {
     
     func cancleClick() {
-        
+       
+        self.dismiss(animated: true, completion: nil)
     }
     
     func registerClick() {
         
+        let registerVc = RegisterViewController()
+        registerVc.title = "注册"
+        self.navigationController?.pushViewController(registerVc, animated: true)
     }
     
     func logButtonClick() {
         
+        SVProgressHUD.showSuccess(withStatus: "登录成功")
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func shareButtonClick(button: UIButton) -> Void {
+        
+        if button.tag == 0 {
+            // 微博
+            print("微博")
+        }
+        else if button.tag == 1 {
+            // 微信
+            print("微信")
+
+        }
+        else {
+            
+            // QQ
+            print("QQ")
+        }
     }
 }
