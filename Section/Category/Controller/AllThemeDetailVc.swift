@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AllThemeDetailVc: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class AllThemeDetailVc: BaseViewController, UITableViewDelegate, UITableViewDataSource, AllThemeDetailCellDelegate {
 
     var tableView: UITableView?
     
@@ -36,6 +36,7 @@ class AllThemeDetailVc: BaseViewController, UITableViewDelegate, UITableViewData
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "AllThemeDetailCell", for: indexPath) as! AllThemeDetailCell
         cell.selectionStyle = .none
+        cell.delegate = self
         return cell
     }
     
@@ -55,11 +56,18 @@ class AllThemeDetailVc: BaseViewController, UITableViewDelegate, UITableViewData
         return 170
     }
     
+    func didLikeButtonClick() {
+        
+        print("喜欢")
+    }
+    
 //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        
 //        let detailVc = AllThemeDetailVc()
 //        navigationController?.pushViewController(detailVc, animated: true)
 //    }
+    
+    
 }
 
 // MARK: - 设置界面

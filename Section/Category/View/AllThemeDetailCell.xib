@@ -28,6 +28,7 @@
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <state key="normal" title="6666" image="Feed_FavoriteIcon_17x17_"/>
+                        <state key="selected" image="content-details_like_selected_16x16_"/>
                         <connections>
                             <action selector="likeButtonClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="CEK-4g-y03"/>
                         </connections>
@@ -38,11 +39,11 @@
                     <constraint firstItem="YFW-tK-PtX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="JkL-4G-LEa"/>
                     <constraint firstAttribute="bottomMargin" secondItem="vXp-nW-xhP" secondAttribute="bottom" constant="1.5" id="Nqc-8G-OZc"/>
                     <constraint firstAttribute="bottom" secondItem="YFW-tK-PtX" secondAttribute="bottom" constant="5" id="akM-9y-vK1"/>
-                    <constraint firstItem="hax-gA-dWY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="j0o-Wp-DBs"/>
+                    <constraint firstItem="hax-gA-dWY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="14" id="j0o-Wp-DBs"/>
                     <constraint firstAttribute="trailingMargin" secondItem="vXp-nW-xhP" secondAttribute="trailing" constant="1" id="sGt-MU-JEQ"/>
                     <constraint firstItem="YFW-tK-PtX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="swb-P0-8KR"/>
                     <constraint firstItem="vXp-nW-xhP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="vuT-3q-bGb"/>
-                    <constraint firstAttribute="trailing" secondItem="hax-gA-dWY" secondAttribute="trailing" constant="5" id="zK0-nL-epK"/>
+                    <constraint firstAttribute="trailing" secondItem="hax-gA-dWY" secondAttribute="trailing" constant="21" id="zK0-nL-epK"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -55,5 +56,6 @@
     </objects>
     <resources>
         <image name="Feed_FavoriteIcon_17x17_" width="17" height="17"/>
+        <image name="content-details_like_selected_16x16_" width="16" height="16"/>
     </resources>
 </document>

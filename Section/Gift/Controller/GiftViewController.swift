@@ -14,14 +14,31 @@ class GiftViewController: BaseViewController {
     
     // collectionView
     var collectionView: UICollectionView?
+    var dataArray = [GiftModel]()
+    
     // 数据源
-    var dataArray = [AnyObject]()
+//    var dataArray = [AnyObject]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupCollectionView()
+        loadData()
         
+    }
+}
+// 加载数据
+
+extension GiftViewController {
+    
+    func loadData() {
+        
+        NetWorkTool.shareNetWorkTool.loadGiftListData { (array) in
+            
+            print(array.count)
+            self.dataArray += array
+            self.collectionView?.reloadData()
+        }
     }
 }
 
@@ -46,7 +63,7 @@ extension GiftViewController: UICollectionViewDelegate, UICollectionViewDataSour
     // MARK: - UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return 10
+        return self.dataArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
