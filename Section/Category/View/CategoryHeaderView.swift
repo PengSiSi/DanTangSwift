@@ -8,14 +8,24 @@
 
 import UIKit
 
+protocol CategoryHeaderViewDelegate {
+    
+    func didClickLookAllButton()
+}
 
 class CategoryHeaderView: UICollectionReusableView {
 
     @IBOutlet weak var goButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
+    var delegate: CategoryHeaderViewDelegate?
+
+    // "查看全部"被点击
     @IBAction func lookAllButtonClick(_ sender: AnyObject) {
         
+        if delegate != nil {
+            delegate?.didClickLookAllButton()
+        }
     }
     
     override func awakeFromNib() {

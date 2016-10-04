@@ -57,7 +57,7 @@ extension CategoryViewController {
 }
 
 // 数据源,代理
-extension CategoryViewController: UICollectionViewDelegate, UICollectionViewDataSource,  UICollectionViewDelegateFlowLayout {
+extension CategoryViewController: UICollectionViewDelegate, UICollectionViewDataSource,  UICollectionViewDelegateFlowLayout, CategoryHeaderViewDelegate {
 
     // MARK: - UICollectionViewDataSource
 
@@ -124,6 +124,7 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
         if kind == UICollectionElementKindSectionHeader {
             
             headView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "CategoryHeaderView", for: indexPath) as! CategoryHeaderView
+            headView.delegate = self
             if indexPath.section == 1 {
                 headView.titleLabel.text = "风格"
                 headView.detailLabel.isHidden = true
@@ -172,8 +173,11 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
         }
     }
     
-    // MARK: - YMCollectionViewCellDelegate
-    func collectionViewCellDidClickedLikeButton(button: UIButton) {
-        
+    // MARK: - CategoryHeaderViewDelegate
+    func didClickLookAllButton() {
+     
+        print("查看全部")
+        let allThemeVc = AllThemeViewController()
+        navigationController?.pushViewController(allThemeVc, animated: true)
     }
 }
