@@ -11,6 +11,7 @@ import Foundation
 import Alamofire
 import SVProgressHUD
 import SwiftyJSON
+import ObjectMapper
 
 class NetWorkTool: NSObject {
     
@@ -35,9 +36,8 @@ class NetWorkTool: NSObject {
                 
                 let dic = JSON(value)
                 let code = dic["code"].intValue
-                let message = dic["message"].stringValue
                 guard code == RETURN_OK else {
-                    SVProgressHUD.showInfo(withStatus: "加载成功")
+                    SVProgressHUD.showInfo(withStatus: "加载失败")
                     return
                 }
                 SVProgressHUD.dismiss()
@@ -45,10 +45,10 @@ class NetWorkTool: NSObject {
                 if let items = data?["items"]?.arrayObject {
                     var gifts = [GiftModel]()
                     for item in items {
-                        let gift = GiftModel(dict: item as! [String: AnyObject])
+                        let gift = GiftModel.init(dict: item as! [String : AnyObject])
+
                         gifts.append(gift)
                     }
-
                     completion(gifts)
                 }
             }

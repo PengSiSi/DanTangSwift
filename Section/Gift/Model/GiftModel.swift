@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import ObjectMapper
 
 class GiftModel: NSObject {
-
+//
     var cover_image_url: String?
     var created_at: Int?
     var describe: String?
@@ -46,4 +47,14 @@ class GiftModel: NSObject {
         updated_at = dict["updated_at"] as? Int
         url = dict["url"] as? String
     }
+    
+//    required init?(map: Map) {
+//        
+//    }
+//    
+//    func mapping(map: Map) {
+//        cover_image_url    <- map["cover_image_url"]
+//        created_at         <- map["created_at"]
+//        describe      <- map["describe"]
+//    }
 }

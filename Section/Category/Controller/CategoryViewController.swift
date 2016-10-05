@@ -41,13 +41,16 @@ extension CategoryViewController {
     
     func setupCollectionView() {
 
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UICollectionViewFlowLayout())
+        let layout = UICollectionViewFlowLayout()
+        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
         collectionView?.delegate = self
         collectionView?.dataSource = self
         collectionView?.showsVerticalScrollIndicator = false
         collectionView?.showsHorizontalScrollIndicator = false
         view.addSubview((collectionView!))
         collectionView?.backgroundColor = UIColor.white
+        //水平滑动
+        
         // 注册cell
         collectionView?.register(UINib.init(nibName: "CategoryCell", bundle: nil), forCellWithReuseIdentifier: cellId)
         collectionView?.register(UINib.init(nibName: "TopCell", bundle: nil), forCellWithReuseIdentifier: "TopCell")
@@ -69,7 +72,7 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if section == 0 {
-            return 5
+            return 3
         }
         else if section == 1 {
             
@@ -162,7 +165,7 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
         
         if indexPath.section == 0 {
             
-            return CGSize(width: (SCREENW - 40) / 3, height: 40)
+            return CGSize(width: (SCREENW - 40) / 3, height: 60)
 
         }
         else {
