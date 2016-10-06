@@ -8,14 +8,39 @@
 
 import UIKit
 
+protocol GiftDetailToolbarViewDelegate {
+    
+    func didClickLikeButton()
+    func didClickGoTianMaoBuy()
+    
+}
+
 class GiftDetailToolbarView: UIView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    @IBOutlet weak var buyButton: UIButton!
+    @IBOutlet weak var likeButton: UIButton!
+    
+    var delegate: GiftDetailToolbarViewDelegate?
+    
+    // 去天猫购买
+    @IBAction func goTianMaoBuyButton(_ sender: AnyObject) {
+        if self.delegate != nil {
+            delegate?.didClickGoTianMaoBuy()
+        }
     }
-    */
 
+    // 喜欢
+    @IBAction func likeButton(_ sender: AnyObject) {
+        if self.delegate != nil {
+            delegate?.didClickLikeButton()
+        }
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        likeButton.layer.cornerRadius = 5
+        likeButton.layer.borderColor = UIColor.red.cgColor
+        likeButton.layer.borderWidth = 0.5
+        buyButton.layer.cornerRadius = 5
+    }
 }

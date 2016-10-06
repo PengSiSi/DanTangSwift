@@ -96,13 +96,21 @@ extension MyViewController {
     func didClickAvaterButton() {
         
         print("头像被点击啦")
-        // 判断是否登录
-        if UserDefaults.standard.bool(forKey: "isLog") {
-            
+//        // 判断是否登录
+//        if UserDefaults.standard.bool(forKey: "isLog") {
+//            
             let actionSheet: UIAlertController = UIAlertController(title: "", message: nil, preferredStyle: .actionSheet)
             // 相机
             let cameraAction = UIAlertAction(title: "编辑资料", style: .default, handler: { (actionSheet) in
                 
+                let editVc = EditViewController()
+                
+                // 执行闭包
+                editVc.nickNameBlock = { (str: String) -> () in
+
+                    self.headerView.nickNameLabel.text = str
+                }
+                self.navigationController?.pushViewController(editVc, animated: true)
             })
             // 相册
             let photoAction = UIAlertAction(title: "退出登录", style: .default, handler: { (_) in
@@ -116,14 +124,14 @@ extension MyViewController {
             actionSheet.addAction(photoAction)
             self.present(actionSheet, animated: true, completion: nil)
         }
-        else {
-          
-            let logginVc = LogViewController()
-            logginVc.title = "登录"
-            let nav = BaseNavigationController(rootViewController: logginVc)
-            present(nav, animated: true, completion: nil)
-        }
-    }
+//        else {
+//          
+//            let logginVc = LogViewController()
+//            logginVc.title = "登录"
+//            let nav = BaseNavigationController(rootViewController: logginVc)
+//            present(nav, animated: true, completion: nil)
+//        }
+//    }
     
     func didClickMessageButton() {
         

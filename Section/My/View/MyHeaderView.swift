@@ -113,7 +113,7 @@ class MyHeaderView: UIView {
     }()
     
     // 5.昵称Label
-    fileprivate lazy var nickNameLabel: UILabel = {
+     lazy var nickNameLabel: UILabel = {
        
         let nickNameLabel = UILabel()
         nickNameLabel.text = "思思"

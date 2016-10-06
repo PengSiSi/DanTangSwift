@@ -18,7 +18,7 @@ class NetWorkTool: NSObject {
     // 单例
     static let shareNetWorkTool = NetWorkTool()
     
-    // 获取首页顶部选择数据
+    // 1. 获取首页顶部选择数据
     func loadHomeTopData(finished:@escaping (_ channels: [ChannelModel]) -> ()) {
 
         let url = "http://api.dantangapp.com/v2/channels/preset"
@@ -57,7 +57,7 @@ class NetWorkTool: NSObject {
          }
     }
     
-    // 获取首页数据
+    // 2.获取首页数据
     func loadHomeInfo(id: Int, finished:@escaping (_ homeItems: [HomeListModel]) -> ()) {
         let url = BASE_URL + "v1/channels/\(id)/items"
         let params = ["gender": 1,
@@ -94,7 +94,7 @@ class NetWorkTool: NSObject {
         }
     }
     
-    //  获取"单品"界面列表数据  闭包传递数据源  参数要加_
+    //  3.获取"单品"界面列表数据  闭包传递数据源  参数要加_
     func loadGiftListData(completion: @escaping (_ giftModels: [GiftModel]) -> ()) {
         let url = BASE_URL + "v2/items"
         let params = ["gender": 1,
@@ -127,6 +127,77 @@ class NetWorkTool: NSObject {
                         }
                     }
                     completion(gifts)
+                }
+            }
+        }
+    }
+    
+    // 4.搜索热门关键字数据
+    func loadHotWords(_ finish: @escaping (_ words: [String]) -> ()) {
+        
+        SVProgressHUD.showInfo(withStatus: "正在加载")
+        let url = "http://api.dantangapp.com/v1/search/hot_words"
+        Alamofire.request(url, method: .get, parameters: nil, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (response) in
+            guard response.result.isSuccess else {
+                SVProgressHUD.showInfo(withStatus: "加载失败")
+                return
+            }
+            // 存在数据
+            if let value = response.result.value {
+             let dict = JSON(value)
+            let code = dict["code"].intValue
+//            let message = dict["message"].stringValue
+            guard code == RETURN_OK else {
+                SVProgressHUD.showInfo(withStatus: "加载失败")
+                return
+            }
+            SVProgressHUD.dismiss()
+                if let data = dict["data"].dictionary {
+                    if let hotwords = data["hot_words"]?.arrayObject {
+                        
+                        // 值回调
+                        finish(hotwords as! [String])
+                    }
+                }
+            }
+        }
+    }
+    
+    // 5.根据搜索条件进行搜索
+    func loadSearchResult(_ keyword: String, _ sort: String, _ finished:@escaping (_ results: [SearchResult]) -> ()) {
+        
+        SVProgressHUD.showInfo(withStatus: "正在加载")
+        let url = "http://api.dantangapp.com/v1/search/item"
+        let param = ["keyword": keyword,
+                     "limit": 20,
+                     "offset": 0,
+                     "sort": sort] as [String : Any]
+        Alamofire.request(url, method: .get, parameters: param, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (response) in
+            
+            guard response.result.isSuccess else {
+                SVProgressHUD.showInfo(withStatus: "加载失败")
+                return
+            }
+            // 有值,解析数据
+            if let value = response.result.value {
+                
+                let dict = JSON(value)
+                let code = dict["code"].intValue
+                let message = dict["message"].stringValue
+                guard code == RETURN_OK else {
+                    SVProgressHUD.showInfo(withStatus: "加载失败")
+                    return
+                }
+                SVProgressHUD.dismiss()
+                let data = dict["data"].dictionary
+                if let items: [[String: AnyObject]] = data?["items"]?.arrayObject as! [[String : AnyObject]]? {
+                    var resultArray = [SearchResult]()
+                    for item in items {
+                        
+                        let model = SearchResult()
+                        resultArray.append(model)
+                    }
+                    finished(resultArray)
                 }
             }
         }

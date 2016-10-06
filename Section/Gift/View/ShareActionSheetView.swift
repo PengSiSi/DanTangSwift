@@ -18,6 +18,7 @@ class ShareActionSheetView: UIView {
         actionSheet.frame = UIScreen.main.bounds
         actionSheet.backgroundColor = UIColor.white
         let window = UIApplication.shared.keyWindow
+        window?.backgroundColor = UIColor.lightGray
         window?.addSubview(actionSheet)
     }
 
@@ -50,7 +51,7 @@ class ShareActionSheetView: UIView {
             make.right.equalTo(cancelButton.snp.right)
             make.height.equalTo(kTopViewH)
         }
-        
+//        topView.backgroundColor = UIColor.lightGray
         cancelButton.snp.makeConstraints { (make) in
             make.left.equalTo(bgView).offset(kMargin)
             make.right.bottom.equalTo(bgView).offset(-kMargin)
@@ -120,6 +121,7 @@ class ShareActionSheetView: UIView {
         cancelButton.addTarget(self, action: #selector(cancelButtonClick), for: .touchUpInside)
         cancelButton.layer.cornerRadius = kCornerRadius
         cancelButton.layer.masksToBounds = true
+//        cancelButton.backgroundColor = UIColor.lightGray
         return cancelButton
     }()
 
