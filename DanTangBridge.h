@@ -12,5 +12,6 @@
 #import "CZAdditions.h"
 #import "CustomTextView.h"
 #import "UIViewExt.h"
+#import "UIView+AdjustFrame.h"
 
 #endif /* DanTangBridge_h */

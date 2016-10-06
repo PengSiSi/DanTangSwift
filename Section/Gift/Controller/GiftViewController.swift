@@ -78,6 +78,9 @@ extension GiftViewController: UICollectionViewDelegate, UICollectionViewDataSour
     // MARK: - UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        // 进入详情
+        let detail = GiftDetailViewController()
+        self.navigationController?.pushViewController(detail, animated: true)
     }
     
     // MARK: - UICollectionViewDelegateFlowLayout
