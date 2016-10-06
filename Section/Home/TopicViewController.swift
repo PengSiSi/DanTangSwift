@@ -7,29 +7,102 @@
 //
 
 import UIKit
+import SDCycleScrollView
 
-class TopicViewController: BaseViewController {
+class TopicViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource,AllThemeDetailCellDelegate {
+
+    var tableView: UITableView?
+    // 数据原数组
+    var dataArray = [AnyObject]()
+    let cellId = "SettingCell"
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        createTableView()
+        createScrollView()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // 组数
+    func numberOfSections(in tableView: UITableView) -> Int {
+        
+        return 3
     }
-    */
+    
+    // 行数
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return 10
+    }
+    
+    // cell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AllThemeDetailCell", for: indexPath) as! AllThemeDetailCell
+        cell.selectionStyle = .none
+        cell.delegate = self
+        return cell
+    }
+    
+    // 头视图的高度
+  
+    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
+        return 42
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        return 170
+    }
+    
+    
+   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    
+       let headerView = (Bundle.main.loadNibNamed("HomeHeaderView", owner: self, options: nil) as! NSArray).lastObject
+        return headerView as! HomeHeaderView?
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let homeDetailVc = HomeDatailViewController()
+        navigationController?.pushViewController(homeDetailVc, animated: true)
+    }
 
+    
+    func didLikeButtonClick() {
+        
+        print("喜欢")
+    }
+    
+       }
+
+// MARK: - 设置界面
+extension TopicViewController {
+    
+    func createTableView() {
+        
+        tableView = UITableView(frame: CGRect(x: 0, y: 0, width: SCREENW, height: SCREENH), style: .plain)
+        tableView?.delegate = self
+        tableView?.dataSource = self
+        tableView?.tableFooterView = UIView()
+        view.addSubview(tableView!)
+        // 注册cell
+        tableView?.register(UINib.init(nibName: "AllThemeDetailCell", bundle: nil), forCellReuseIdentifier: "AllThemeDetailCell")
+        tableView?.register(UINib.init(nibName: "HomeHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "HomeHeaderView")
+    }
+    
+    func createScrollView() {
+        
+        let sdCycleView = SDCycleScrollView()
+        sdCycleView.frame = CGRect(x: 0, y: 44, width: SCREENW, height: 200)
+        sdCycleView.backgroundColor = UIColor.red
+        tableView?.tableHeaderView = sdCycleView
+    }
 }
+

@@ -22,7 +22,8 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate {
     var selectedButton = UIButton()
     
     var dataArray = [AnyObject]()
-    var childControllers = [BaseViewController]()
+    var childControllers = [TopicViewController]()
+    var isExpand: Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,7 +80,6 @@ extension HomeViewController {
         arrowButton.frame = CGRect(x: SCREENW - 40, y: 8, width: 30, height: 30)
         arrowButton.setImage(UIImage(named: "arrow_index_down_8x4_"), for: .normal)
         arrowButton.addTarget(self, action: #selector(arrowButtonClick(button:)), for: .touchUpInside)
-        arrowButton.backgroundColor = UIColor.gray
         bgView.addSubview(arrowButton)
         
         // 内部子标签
@@ -109,19 +109,35 @@ extension HomeViewController {
                 indicatorView.center.x = button.center.x
             }
             
-            let topVc = BaseViewController()
+            let topVc = TopicViewController()
             childControllers.append(topVc)
         }
     
     }
     
     func arrowButtonClick(button:  UIButton) {
-        
-        print("展开")
+
+        button.isSelected = !button.isSelected
+        isExpand = button.isSelected
         // 180度转化
         UIView.animate(withDuration: 0.2) {
             button.imageView?.transform = (button.imageView?.transform)!.rotated(by: CGFloat(M_PI))
         }
+        let arrowVc = ArrowPresentViewController()
+        if button.isSelected == true {
+//            
+            arrowVc.view.frame = CGRect(x: 0, y: 44 + 64, width: SCREENW, height: SCREENH - 44)
+            UIApplication.shared.keyWindow?.addSubview(arrowVc.view)
+//            self.view.addSubview(arrowVc.view)
+        }
+        else {
+            arrowVc.view.frame = CGRect.zero
+
+            arrowVc.view.removeFromSuperview()
+            arrowVc.view = nil
+        }
+//        self.modalTransitionStyle = .coverVertical
+//        self.navigationController?.present(arrowVc, animated: true, completion: nil)
     }
     
     func titleViewsButtonClick(button: UIButton) {
@@ -135,6 +151,10 @@ extension HomeViewController {
             self.indicatorView.frame.size.width = (self.selectedButton.titleLabel?.frame.size.width)!
             self.indicatorView.center.x = button.center.x
         }
+        // 切换子控制器
+        var offset = contentView.contentOffset
+        offset.x = CGFloat(button.tag) * contentView.width
+        contentView.setContentOffset(offset, animated: false)
     }
 }
 
@@ -165,7 +185,6 @@ extension HomeViewController {
         vc.view.frame.origin.x = scrollView.contentOffset.x / scrollView.frame.size.width
         vc.view.frame.origin.y = 0
         vc.view.frame.size.height = scrollView.frame.size.height
-        vc.view.backgroundColor = UIColor.green
         scrollView.addSubview(vc.view)
         
         let width = (titlesView?.frame.size.width)! / 6.0
