@@ -13,14 +13,23 @@ class TopicViewController: BaseViewController, UITableViewDelegate, UITableViewD
 
     var tableView: UITableView?
     // 数据原数组
-    var dataArray = [AnyObject]()
+    var dataArray = [HomeListModel]()
     let cellId = "SettingCell"
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        loadData()
         createTableView()
         createScrollView()
+    }
+    
+    func loadData() {
+        
+        NetWorkTool.shareNetWorkTool.loadHomeInfo(id: 4) { (homeModelList) in
+            
+            self.dataArray += homeModelList
+        }
     }
     
     // 组数
@@ -80,7 +89,7 @@ class TopicViewController: BaseViewController, UITableViewDelegate, UITableViewD
         print("喜欢")
     }
     
-       }
+}
 
 // MARK: - 设置界面
 extension TopicViewController {
@@ -92,6 +101,7 @@ extension TopicViewController {
         tableView?.dataSource = self
         tableView?.tableFooterView = UIView()
         view.addSubview(tableView!)
+        self.automaticallyAdjustsScrollViewInsets = false
         // 注册cell
         tableView?.register(UINib.init(nibName: "AllThemeDetailCell", bundle: nil), forCellReuseIdentifier: "AllThemeDetailCell")
         tableView?.register(UINib.init(nibName: "HomeHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "HomeHeaderView")

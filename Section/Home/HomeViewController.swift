@@ -21,17 +21,21 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate {
     // 当前选中按钮
     var selectedButton = UIButton()
     
-    var dataArray = [AnyObject]()
+    var dataArray = [ChannelModel]()
     var childControllers = [TopicViewController]()
     var isExpand: Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupNav()
-        //设置顶部标签栏
-        setupTitlesView()
-        createBottomScrollView()
+        // 获取首页顶部选择数据
+        NetWorkTool.shareNetWorkTool.loadHomeTopData { (channelArray) in
+            self.dataArray += channelArray
+        }
+////        //设置顶部标签栏
+//        setupTitlesView()
+//        setupNav()
+//        createBottomScrollView()
     }
 }
 
@@ -83,18 +87,18 @@ extension HomeViewController {
         bgView.addSubview(arrowButton)
         
         // 内部子标签
-        let titlesArray = ["精选", "美物", "美护", "美食", "家居", "数码"]
-        let count  = titlesArray.count
+//        let titlesArray = ["精选", "美物", "美护", "美食", "家居", "数码"]
+        let count  = dataArray.count
         let width = titlesView.frame.size.width / CGFloat(count)
 //        let height = 44
-        for index in 0...count - 1 {
+        for index in 0..<count {
              let button = UIButton()
             button.frame.origin.x = CGFloat(index) * width
             button.frame.size.width = width
             button.frame.size.height = 44 - 5
             button.frame.origin.y = 0
             button.tag = index
-            button.setTitle(titlesArray[index], for: .normal)
+            button.setTitle((dataArray[index] as! ChannelModel).name, for: .normal)
             button.setTitleColor(UIColor.gray, for: .normal)
             button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
             button.addTarget(self, action: #selector(titleViewsButtonClick(button:)), for: .touchUpInside)

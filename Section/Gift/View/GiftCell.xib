@@ -50,6 +50,12 @@
                 <constraint firstItem="InQ-gN-NYd" firstAttribute="leading" secondItem="b3U-gS-uaV" secondAttribute="trailing" constant="45" id="tR7-3n-iZt"/>
             </constraints>
             <size key="customSize" width="152" height="248"/>
+            <connections>
+                <outlet property="imgView" destination="9TJ-Qt-ekj" id="uYe-aE-vh0"/>
+                <outlet property="likeButton" destination="InQ-gN-NYd" id="reJ-kK-WAb"/>
+                <outlet property="nameLabel" destination="FIX-pN-cpl" id="fNa-oD-ewh"/>
+                <outlet property="priceLabel" destination="b3U-gS-uaV" id="5wu-XW-RwO"/>
+            </connections>
             <point key="canvasLocation" x="86" y="193"/>
         </collectionViewCell>
     </objects>

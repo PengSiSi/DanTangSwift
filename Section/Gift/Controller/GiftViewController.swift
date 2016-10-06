@@ -34,7 +34,6 @@ extension GiftViewController {
     func loadData() {
         
         NetWorkTool.shareNetWorkTool.loadGiftListData { (array) in
-            
             print(array.count)
             self.dataArray += array
             self.collectionView?.reloadData()
@@ -68,6 +67,7 @@ extension GiftViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: collectionCellId, for: indexPath) as! GiftCell
+        cell.model = self.dataArray[indexPath.row]
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
