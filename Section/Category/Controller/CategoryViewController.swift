@@ -14,11 +14,34 @@ class CategoryViewController: BaseViewController {
 
     var collectionView: UICollectionView?
     var dataArray: [AnyObject] = []
-    
+    var dataArray1: [AnyObject] = []
+    var dataArray2: [AnyObject] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNav()
         setupCollectionView()
+        loadData()
+    }
+}
+
+extension CategoryViewController {
+    
+    func loadData() {
+        
+        NetWorkTool.shareNetWorkTool.loadCategoryListData { (array) in
+            
+            self.dataArray = array;
+            for i in 0...self.dataArray.count - 1 {
+                if i < 4 {
+                    self.dataArray1.append(self.dataArray[i])
+                }
+//                else {
+//                    self.dataArray2.append(self.dataArray[i])
+//                }
+            }
+            self.collectionView?.reloadData()
+        }
     }
 }
 
@@ -76,10 +99,10 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
         }
         else if section == 1 {
             
-            return 4
+            return self.dataArray1.count
         }
         else {
-            return 7
+            return self.dataArray.count
         }
     }
     
@@ -90,10 +113,17 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopCell", for: indexPath) as! TopCell
             return cell
         }
-        else {
+        else if indexPath.section == 1 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CategoryCell
+            cell.model = self.dataArray1[indexPath.row] as? CategoryModel;
             return cell
   
+        }
+        else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CategoryCell
+            cell.model = self.dataArray[indexPath.row] as? CategoryModel;
+            return cell
+            
         }
         return UICollectionViewCell()
     }
@@ -113,8 +143,13 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        if indexPath.section == 1 {
+            let detailVc = CategoryDetailVC()
+            detailVc.title = self.dataArray1[indexPath.row].name;
+            self.navigationController?.pushViewController(detailVc, animated: true)
+        }
     }
-    
+
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
 //        
 //        return 10

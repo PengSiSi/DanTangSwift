@@ -202,4 +202,80 @@ class NetWorkTool: NSObject {
             }
         }
     }
+    
+    // 5.获取分类列表数据
+    
+    func loadCategoryListData(completion: @escaping (_ categoryModels: [CategoryModel]) -> ()) {
+        let url = BASE_URL + "v1/channel_groups/all?"
+        Alamofire.request("http://api.dantangapp.com/v1/channel_groups/all?", parameters: nil, encoding: URLEncoding.httpBody).responseJSON { (response) in
+            
+            print("response----\(response.result.value)")
+            //            guard response.result.isSuccess else {
+            //                SVProgressHUD.showError(withStatus: "加载失败")
+            //            }
+            // 解析数据
+            if let value = response.result.value {
+                
+                let dic = JSON(value)
+                let code = dic["code"].intValue
+                guard code == RETURN_OK else {
+                    SVProgressHUD.showInfo(withStatus: "加载失败")
+                    return
+                }
+                SVProgressHUD.dismiss()
+                let data = dic["data"].dictionary
+                if let items: [[String: AnyObject]] = data?["channel_groups"]?.arrayObject as! [[String : AnyObject]]? {
+                    var categorys = [CategoryModel]()
+                    for item  in items {
+                        
+                        // 存放数组的数组
+                        var array: Array = [AnyObject]()
+                        
+                        if let channels: [[String: AnyObject]] = item["channels"] as! [[String : AnyObject]]? {
+                            for channel in channels{
+                                
+                                let category = CategoryModel.init(dict: channel as! [String: AnyObject] as [String : AnyObject])
+                                categorys.append(category)
+                            }
+//                            array.append(categorys as AnyObject)
+                            completion(categorys)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    // 6.获取分类详情数据
+    func loadCategoryDetailData(completion: @escaping (_ homeListModels: [HomeListModel]) -> ()) {
+        Alamofire.request("http://api.dantangapp.com/v1/channels/12/items?limit=20&offset=0", parameters: nil, encoding: URLEncoding.httpBody).responseJSON { (response) in
+            
+            print("response----\(response.result.value)")
+            //            guard response.result.isSuccess else {
+            //                SVProgressHUD.showError(withStatus: "加载失败")
+            //            }
+            // 解析数据
+            if let value = response.result.value {
+                
+                let dic = JSON(value)
+                let code = dic["code"].intValue
+                guard code == RETURN_OK else {
+                    SVProgressHUD.showInfo(withStatus: "加载失败")
+                    return
+                }
+                SVProgressHUD.dismiss()
+                let data = dic["data"].dictionary
+                if let items: [[String: AnyObject]] = data?["items"]?.arrayObject as! [[String : AnyObject]]? {
+                    var categoryDetailArray = [HomeListModel]()
+                    for item in items {
+                        
+                        let model = HomeListModel(dict: item)
+                        categoryDetailArray.append(model)
+                    }
+                    completion(categoryDetailArray)
+                }
+            }
+        }
+    }
+
 }

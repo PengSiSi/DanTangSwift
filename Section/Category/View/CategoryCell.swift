@@ -10,9 +10,21 @@ import UIKit
 
 class CategoryCell: UICollectionViewCell {
 
+    @IBOutlet weak var imgView: UIImageView!
+    
+    @IBOutlet weak var titlelabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-    }
 
+    }
+    
+    var model : CategoryModel? {
+        
+        didSet {
+           
+            self.imgView.sd_setImage(with: URL(string: (model?.icon_url)!))
+            self.titlelabel.text = model?.name
+        }
+    }
 }

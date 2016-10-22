@@ -8,11 +8,11 @@
 
 import UIKit
 
-class GiftDetailViewController: BaseViewController, GiftDetailToolbarViewDelegate{
+class GiftDetailViewController: BaseViewController, GiftDetailToolbarViewDelegate, FavouriteActionSheetViewDelegate{
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.lightGray
+        //view.backgroundColor = UIColor.lightGray
         title = "商品详情"
         setNavAndBottom()
         createBottomView()
@@ -25,6 +25,30 @@ class GiftDetailViewController: BaseViewController, GiftDetailToolbarViewDelegat
         giftDetailBottomView.delegate = self
         return giftDetailBottomView
     }()
+    
+    lazy var maskView: UIView = {
+       
+        let maskView = UIView()
+        maskView.frame = CGRect(x: 0, y: 0, width: SCREENW, height: SCREENH)
+        maskView.backgroundColor = UIColor.gray
+        maskView.alpha = 0.5
+        return maskView
+    }()
+    
+    lazy var favoriteView: FavouriteActionSheetView = {
+       
+        let likeView = FavouriteActionSheetView(frame: CGRect(x: 0, y: SCREENH / 2, width: SCREENW, height: SCREENH / 2))
+        //likeView.backgroundColor = UIColor.green
+        likeView.delegate = self
+        likeView.isUserInteractionEnabled = true
+        return likeView
+    }()
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        maskView.removeFromSuperview()
+        createBottomView()
+    }
 }
 
 extension GiftDetailViewController {
@@ -54,9 +78,19 @@ extension GiftDetailViewController {
     
     func didClickLikeButton() {
         
+        maskView.addSubview(favoriteView)
+        view.addSubview(maskView)
+        bottomView.removeFromSuperview()
     }
     
     func didClickGoTianMaoBuy() {
         
+        let tiMaoVc = GoTianMaoViewController()
+        self.navigationController?.pushViewController(tiMaoVc, animated: true)
+    }
+    
+    func didClickAddButton() {
+        
+        print("Add")
     }
 }
